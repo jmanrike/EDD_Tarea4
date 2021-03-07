@@ -1,7 +1,17 @@
 import java.util.Scanner;
 
-public class Criba {
+/**
+ * @author Jordi
+ * @version 1.0
+ *
+ */
 
+public class Criba {
+    /**
+     *
+     * @param numberEntered
+     * @return
+     */
     public static int[] generatePrimes(int numberEntered) {
         int arraySize = numberEntered + 1;
         boolean[] isPrime = new boolean[arraySize];
@@ -18,6 +28,13 @@ public class Criba {
             return new int[0];
         }
     }
+
+    /**
+     *
+     * @param arraySize
+     * @param isPrime
+     */
+
     private static void initializeArray(int arraySize, boolean[] isPrime) {
         for (int i = 0; i < arraySize; i++) {
             isPrime[i] = true;
@@ -25,6 +42,12 @@ public class Criba {
         }
         isPrime[0] = isPrime[1] = false;
     }
+
+    /**
+     *
+     * @param arraySize
+     * @param isPrime
+     */
 
     private static void criba(int arraySize, boolean[] isPrime) {
 
@@ -36,6 +59,12 @@ public class Criba {
         }
     }
 
+    /**
+     *
+     * @param arraySize
+     * @param isPrime
+     * @return
+     */
     private static int getCount(int arraySize, boolean[] isPrime) {
         int count = 0;
         for (int i = 0; i < arraySize; i++) {
@@ -45,6 +74,12 @@ public class Criba {
         return count;
     }
 
+    /**
+     *
+     * @param arraySize
+     * @param isPrime
+     * @param primes
+     */
     private static void count(int arraySize, boolean[] isPrime, int[] primes) {
         for (int i = 0, j = 0; i < arraySize; i++) {
             if (isPrime[i])
