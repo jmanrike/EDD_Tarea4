@@ -1,44 +1,58 @@
 import java.util.Scanner;
 
 public class Criba {
-    // Generar números primos de 1 a max
-    public static int[] generarPrimos(int max) {
-        int i, j;
-        if (max >= 2) {
-// Declaraciones
-            int dim = max + 1; // Tamaño del array
-            boolean[] esPrimo = new boolean[dim];
-// Inicializar el array
-            for (i = 0; i < dim; i++)
-                esPrimo[i] = true;
-// Eliminar el 0 y el 1, que no son primos
-            esPrimo[0] = esPrimo[1] = false;
-// Criba
-            for (i = 2; i < Math.sqrt(dim) + 1; i++) {
-                if (esPrimo[i]) {
-// Eliminar los múltiplos de i
-                    for (j = 2 * i; j < dim; j += i)
-                        esPrimo[j] = false;
-                }
-            }
-// ¿Cuántos primos hay?
-            int cuenta = 0;
-            for (i = 0; i < dim; i++) {
-                if (esPrimo[i])
-                    cuenta++;
-            }
-//Rellenar el vector de números primos
-            int[] primos = new int[cuenta];
-            for (i = 0, j = 0; i < dim; i++) {
-                if (esPrimo[i])
-                    primos[j++] = i;
-            }
-            return primos;
-        } else { // max < 2
+
+    public static int[] generatePrimes(int numberEntered) {
+        int arraySize = numberEntered + 1;
+        boolean[] isPrime = new boolean[arraySize];
+
+        if (numberEntered >= 2) {
+
+            initializeArray(arraySize, isPrime);
+            criba(arraySize, isPrime);
+            int[] primes = new int[getCount(arraySize, isPrime)];
+            count(arraySize, isPrime, primes);
+            return primes;
+
+        } else {
             return new int[0];
-// Vector vacío
         }
     }
+    private static void initializeArray(int arraySize, boolean[] isPrime) {
+        for (int i = 0; i < arraySize; i++) {
+            isPrime[i] = true;
+
+        }
+        isPrime[0] = isPrime[1] = false;
+    }
+
+    private static void criba(int arraySize, boolean[] isPrime) {
+
+        for (int i = 2; i < Math.sqrt(arraySize) + 1; i++) {
+            if (isPrime[i]) {
+                for (int j = 2 * i; j < arraySize; j += i)
+                    isPrime[j] = false;
+            }
+        }
+    }
+
+    private static int getCount(int arraySize, boolean[] isPrime) {
+        int count = 0;
+        for (int i = 0; i < arraySize; i++) {
+            if (isPrime[i])
+                count++;
+        }
+        return count;
+    }
+
+    private static void count(int arraySize, boolean[] isPrime, int[] primes) {
+        for (int i = 0, j = 0; i < arraySize; i++) {
+            if (isPrime[i])
+                primes[j++] = i;
+        }
+    }
+
+
 
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
@@ -50,7 +64,7 @@ public class Criba {
             if (i % 10 == 0) System.out.println();
             System.out.print(i + 1 + "\t");
         }
-        vector = generarPrimos(dato);
+        vector = generatePrimes(dato);
         System.out.println("\nVector de primos hasta:" + dato);
         for (int i = 0; i < vector.length; i++) {
             if (i % 10 == 0) System.out.println();
